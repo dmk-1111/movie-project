@@ -1,15 +1,27 @@
 const express = require('express');
+const app = express();
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const Movie = require('./model/movie');
-
-const app = express();
+const multer = require('multer');
 
 app.set('view engine','ejs');
 app.use(express.static('public'));
 app.use('/bootstrap-icons', express.static(__dirname + '/node_modules/bootstrap-icons'));
 app.use('/jquery', express.static(__dirname + '/node_modules/jquery'));
 
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './public/uploads/imgs/');
+  },
+  filename: function (req, file, cb) {
+    // const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+    cb(null, file.originalname);
+  }
+})
+const upload = multer({ storage });
+
+// Mongodb connection
 const dbURL = 'mongodb+srv://user_0002:user12345@dmkcluster.k60wxg4.mongodb.net/dmk-db?appName=DmkCluster';
 mongoose.connect(dbURL)
   .then((result) => app.listen(3000, () => {
@@ -37,8 +49,13 @@ app.get('/movie', (req, res) => {
 });
 
 // Create List
-app.post('/create-movie', (req, res) => {
-  const movie = new Movie(req.body);
+app.post('/create-movie',upload.single('uploaded_file'),(req, res) => {
+  const movie = new Movie({
+    title: req.body.title,
+    author: req.body.author,
+    desc: req.body.desc,
+    image: 'imgs/' + req.file.filename
+  });
   movie.save()
     .then((result) => {
       res.redirect('/movie');

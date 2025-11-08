@@ -45,7 +45,11 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="/create-movie" method="post">
+                <form action="/create-movie" method="post" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="m_title" class="form-label">Image:</label>
+                         <input type="file" class="form-control" name="uploaded_file">                        
+                     </div>
                     <div class="mb-3">
                         <label for="m_title" class="form-label">Movie Title:</label>
                         <input type="text" class="form-control" id="title" name="title" required>
@@ -55,7 +59,7 @@
                         <input type="text" class="form-control" id="author" name="author" required>
                     </div>
                     <div class="mb-3">
-                        <label for="desc" class="form-label">Movie Description:</label>
+                        <label for="desc" class="form-label">Description:</label>
                         <textarea class="form-control" id="desc" name="desc" rows="2"></textarea>
                     </div>
                     <div class="modal-footer border-0">
@@ -92,6 +96,7 @@
     </div>
     </div>
 
+    <%- include('./partials/footer.ejs') %>
 
     <script>
         $(() => {

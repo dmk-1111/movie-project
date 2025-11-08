@@ -13,6 +13,10 @@ const movieSchema = new Schema({
     desc:{
         type:String,
         required: true
+    },
+    image:{
+        type: String,
+        required: false
     }
 },{timestamps: true});
 
