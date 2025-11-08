@@ -1,0 +1,39 @@
+body{
+    margin: 0;
+}
+nav{
+    display: flex;
+    align-items: center;
+    background: #333;
+    padding: 0 25px;
+}
+nav span{
+    margin-right: 16px;
+}
+span img{
+    width: 50px;           
+}
+ul{
+    list-style-type: none;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+ul li{
+    display: inline-block;
+}
+li a{
+    display: block;
+    padding: 15px;
+    color: lightgreen;
+    text-decoration: none;
+}
+li a:hover{
+    color: #fff;
+    background: #444;
+}
+.container{
+    margin: 10px 25px;
+}
+.sub-list{
+    border-left: 5px solid red;
+}

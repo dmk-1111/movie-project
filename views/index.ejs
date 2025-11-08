@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partials/head.ejs') %>
+<body>
+    <%- include('./partials/nav.ejs') %>
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+            <h3 class="mb-0">Movie Lists:</h3>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#movieModal">Create</button>
+        </div>
+        <div class="main-list mt-4 d-flex flex-column gap-3">
+            <% if(movies.length > 0) { %>
+                <% movies.forEach((movie,index) => { %>
+                    <div class="sub-list px-3 d-flex justify-content-between align-items-center">
+                        <div class="movie-name">
+                            <h5><%= movie.title %></h5>
+                            <p class="m-0"><i>Author Name: <%= movie.author %></i></p>
+                        </div>
+                        <div class="main-icons">
+                            <a href="/movie/<%= movie._id %>" class="text-decoration-none" title="Update">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            <a href="#" data-id="<%= movie._id %>" class="text-decoration-none btnDel" title="Delete"
+                                data-bs-toggle="modal" data-bs-target="#movieModalDel">
+                                <i class="bi bi-trash-fill"></i>
+                            </a>
+                            <a href="/movie/detail/<%= movie._id %>" class="text-decoration-none" title="Detail">
+                                <i class="bi bi-file-earmark-medical"></i>
+                            </a>
+                        </div>
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <h5 class="text-danger">There aren't movie.</h5>
+            <% } %>
+        </div>
+    </div>
+
+    <!-- Modal Create -->
+    <div class="modal fade" id="movieModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Create List</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/create-movie" method="post">
+                    <div class="mb-3">
+                        <label for="m_title" class="form-label">Movie Title:</label>
+                        <input type="text" class="form-control" id="title" name="title" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="author" class="form-label">Author Name:</label>
+                        <input type="text" class="form-control" id="author" name="author" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="desc" class="form-label">Movie Description:</label>
+                        <textarea class="form-control" id="desc" name="desc" rows="2"></textarea>
+                    </div>
+                    <div class="modal-footer border-0">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- Modal Delete -->
+    <div class="modal fade" id="movieModalDel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Dialog Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/del-movie" method="post">
+                    <div class="mb-3">
+                        <h5>Are you sure, do you want to delete it?</h5>
+                        <input type="hidden" class="form-control" id="movieId" name="movieId" readonly>
+                    </div>
+                    <div class="modal-footer border-0">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+    <script>
+        $(() => {
+            $('a.btnDel').click(function() {
+                // alert($(this).data('id'));
+                $('#movieModalDel #movieId').val($(this).data('id'));
+            });
+        });
+
+    </script>
+</body>
+</html>
