@@ -17,7 +17,7 @@
                             <p class="m-0"><i>Author Name: <%= movie.author %></i></p>
                         </div>
                         <div class="main-icons">
-                            <a href="/movie/<%= movie._id %>" class="text-decoration-none" title="Update">
+                            <a href="/movie/update/<%= movie._id %>" class="text-decoration-none" title="Update">
                                 <i class="bi bi-pencil-square"></i>
                             </a>
                             <a href="#" data-id="<%= movie._id %>" class="text-decoration-none btnDel" title="Delete"
@@ -45,7 +45,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="/create-movie" method="post" enctype="multipart/form-data">
+                <form action="/movie/create" method="post" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="m_title" class="form-label">Image:</label>
                          <input type="file" class="form-control" name="uploaded_file">                        
@@ -81,7 +81,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="/del-movie" method="post">
+                <form action="/movie/delete" method="post">
                     <div class="mb-3">
                         <h5>Are you sure, do you want to delete it?</h5>
                         <input type="hidden" class="form-control" id="movieId" name="movieId" readonly>

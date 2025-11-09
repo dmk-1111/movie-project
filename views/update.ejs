@@ -5,7 +5,7 @@
     <%- include('./partials/nav.ejs') %>
     <div class="container">
         <% if(data) { %>
-            <form action="/movie/<%= data._id %>" method="post">
+            <form action="/movie/update/<%= data._id %>" method="post">
                 <div class="mb-3">
                     <label for="m_title" class="form-label">Movie Title:</label>
                     <input type="text" class="form-control" id="title" name="title" value="<%= data.title %>" required>
