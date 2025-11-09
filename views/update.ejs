@@ -7,11 +7,12 @@
         <% if(data) { %>
             <form action="/movie/update/<%= data._id %>" method="post" enctype="multipart/form-data">
                 <div class="mb-3">
-                        <label for="m_title" class="form-label">
-                            <img src="/uploads/<%= data.image %>" alt="movie poster" title="Old poster">
-                        </label>
-                         <input type="file" class="form-control" name="uploaded_file">                        
-                     </div>
+                    <label for="uploaded_file" class="form-label lbl-poster">
+                        <img src="/uploads/<%= data.image %>" alt="movie poster" title="Open">
+                    </label>
+                    <input type="file" class="form-control" id="uploaded_file" name="uploaded_file" hidden /> 
+                    <input type="text" class="form-control" name="img_path" id="img_path" value="<%= data.image %>" readonly>                  
+                </div>
                 <div class="mb-3">
                     <label for="m_title" class="form-label">Movie Title:</label>
                     <input type="text" class="form-control" id="title" name="title" value="<%= data.title %>" required>
@@ -21,7 +22,7 @@
                     <input type="text" class="form-control" id="author" name="author" value="<%= data.author %>" required>
                 </div>
                 <div class="mb-3">
-                    <label for="desc" class="form-label">Movie Description:</label>
+                    <label for="desc" class="form-label">Description:</label>
                     <textarea class="form-control" id="desc" name="desc" rows="3"><%= data.desc %></textarea>
                 </div>
                 <div class="modal-footer border-0">
@@ -33,6 +34,16 @@
             </form>
         <% } %>
     </div>
+    <script>
+        $(() => {
+            $('#uploaded_file').change(function(){
+                const fullPath = $(this).val();
+                const fileName = fullPath.split('\\').pop();  
+                $('#img_path').val(fileName);
+            });
+        })
+    </script>
+
     <%- include('./partials/footer.ejs') %>
 </body>
 </html>
