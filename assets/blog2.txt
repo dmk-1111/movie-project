@@ -1,2 +1,0 @@
-<h1>Welcome to Cambodia!!!</h1>
-<p>Nice to meet you.</p>
