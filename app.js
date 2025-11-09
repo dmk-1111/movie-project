@@ -1,7 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
-const Router = require('./routers/movieRouter');
+const Router = require('./routes/movieRoute');
 const app = express();
 
 //------------------- Include ejs file of view engine

@@ -5,7 +5,13 @@
     <%- include('./partials/nav.ejs') %>
     <div class="container">
         <% if(data) { %>
-            <form action="/movie/update/<%= data._id %>" method="post">
+            <form action="/movie/update/<%= data._id %>" method="post" enctype="multipart/form-data">
+                <div class="mb-3">
+                        <label for="m_title" class="form-label">
+                            <img src="/uploads/<%= data.image %>" alt="movie poster" title="Old poster">
+                        </label>
+                         <input type="file" class="form-control" name="uploaded_file">                        
+                     </div>
                 <div class="mb-3">
                     <label for="m_title" class="form-label">Movie Title:</label>
                     <input type="text" class="form-control" id="title" name="title" value="<%= data.title %>" required>
