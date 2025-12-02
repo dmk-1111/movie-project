@@ -57,19 +57,30 @@ const movie_view_update = (req,res) =>{
 const movie_update = [
     upload.single('uploaded_file'),
     (req,res) =>{
+         // If file not provided, avoid crash
+        let imagePath = undefined;
+        if (req.file) {
+            imagePath = 'imgs/' + req.file.filename;
+        }
+
         const body = {
-            title: req.title,
-            author: req.author,
-            desc: req.desc,
-            image: 'imgs/' + req.file.filename
+            title: req.body.title,
+            author: req.body.author,
+            desc: req.body.desc,
         };
+
+        // Only update image if user uploaded a new file
+        if (imagePath) {
+            body.image = imagePath;
+        }
+
         Movie.findByIdAndUpdate(req.params.id, body, {new:true})
             .then((result) => {
                 if(!result){
                     return res.status(404).send("Movie not found");
                 }
                 res.redirect('/movie');
-                console.log(result);
+                
             })
             .catch((err) => {
                 res.status(500).send('Error updating movie : ' + err);

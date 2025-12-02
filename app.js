@@ -8,7 +8,7 @@ const app = express();
 app.set('view engine','ejs');
 
 //------------------- Tracking
-app.use(morgan('dev'));
+// app.use(morgan('dev'));
 
 //------------------- Middleware & static file
 app.use(express.static('public'));
